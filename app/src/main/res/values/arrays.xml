@@ -1,0 +1,19 @@
+<resources>
+    <string-array name="block_tag_entries">
+        <item>@string/caller_tag_fraud</item>
+        <item>@string/caller_tag_ad</item>
+        <item>@string/caller_tag_banking</item>
+        <item>@string/caller_tag_spam</item>
+        <item>@string/caller_tag_illegal</item>
+        <item>@string/caller_tag_insurer</item>
+    </string-array>
+
+    <string-array name="block_tag_values">
+        <item>fraud</item>
+        <item>ad</item>
+        <item>banking</item>
+        <item>spam</item>
+        <item>illegal</item>
+        <item>insurer</item>
+    </string-array>
+</resources>

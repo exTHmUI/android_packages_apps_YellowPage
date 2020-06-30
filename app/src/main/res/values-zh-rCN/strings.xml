@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">黄页</string>
+    <string name="title_settings">黄页设置</string>
+
+    <!-- common -->
+    <string name="update_database_title">更新数据库</string>
+    <string name="database_status">当前共有 %1$d 条数据</string>
+    <string name="database_status_title">数据库状态</string>
+    <string name="database_updating">正在更新</string>
+    <string name="database_checking_update">正在检查更新</string>
+    <string name="database_updated">更新完成</string>
+    <string name="database_update_failed">更新失败，请稍后再试</string>
+    <string name="database_no_updated_version">没有更新的版本</string>
+
+    <!-- YellowPage -->
+    <string name="yellowpage_header">黄页</string>
+    <string name="yellowpage_enable_title">启用黄页</string>
+    <string name="yellowpage_contributors_title">贡献者</string>
+    <string name="yellowpage_contributors_summary">查看黄页条目的贡献者信息</string>
+
+    <!-- Caller ID and Spam -->
+    <string name="caller_id_and_spam_header">来电识别和骚扰拦截</string>
+    <string name="caller_id_and_spam_enable_title">启用来电识别</string>
+    <string name="caller_id_and_spam_enable_summary">启用在线来电识别和骚扰电话拦截服务</string>
+    <string name="do_not_block_repeat_call_title">不拦截重复来电</string>
+    <string name="do_not_block_repeat_call_summary">不拦截20分钟内的多次来电</string>
+    <string name="block_by_tag_title">根据标签拦截电话</string>
+    <string name="block_by_tag_summary_enabled">将根据所选类型来拦截骚扰电话</string>
+    <string name="block_by_tag_summary_disabled">将拦截所有骚扰电话</string>
+    <string name="block_tags_title">需要阻止的标签</string>
+    <!-- Caller tags -->
+    <string name="caller_tag_fraud">诈骗</string>
+    <string name="caller_tag_banking">金融</string>
+    <string name="caller_tag_ad">广告</string>
+    <string name="caller_tag_spam">骚扰</string>
+    <string name="caller_tag_illegal">违法</string>
+    <string name="caller_tag_insurer">保险</string>
+</resources>

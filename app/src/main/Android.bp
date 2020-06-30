@@ -1,0 +1,20 @@
+android_app {
+    name: "YellowPage",
+
+    resource_dirs: ["res"],
+
+    srcs: ["java/**/*.java"],
+
+    product_specific: true,
+
+    static_libs: [
+        "androidx.annotation_annotation",
+        "androidx.appcompat_appcompat",
+        "androidx.preference_preference",
+        "androidx-constraintlayout_constraintlayout",
+        "com.google.android.material_material",
+    ],
+
+    sdk_version: "current",
+
+}

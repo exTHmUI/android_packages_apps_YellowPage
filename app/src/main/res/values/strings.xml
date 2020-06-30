@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">YellowPage</string>
+    <string name="title_settings">YellowPage Settings</string>
+
+    <!-- common -->
+    <string name="update_database_title">Update database</string>
+    <string name="database_status_title">Local database status</string>
+    <string name="database_status">There are currently %1$d pieces of data</string>
+    <string name="database_updating">Updating</string>
+    <string name="database_checking_update">Checking updates</string>
+    <string name="database_updated">Update completed successfully</string>
+    <string name="database_update_failed">Update failed, please try again later</string>
+    <string name="database_no_updated_version">There is no updated version</string>
+
+    <!-- YellowPage -->
+    <string name="yellowpage_header">YellowPage</string>
+    <string name="yellowpage_enable_title">Enable</string>
+    <string name="yellowpage_contributors_title">Contributors</string>
+    <string name="yellowpage_contributors_summary">View contributors for yellow page entries</string>
+
+    <!-- Caller ID and Spam -->
+    <string name="caller_id_and_spam_header">Caller ID and Spam</string>
+    <string name="caller_id_and_spam_enable_title">Enable</string>
+    <string name="caller_id_and_spam_enable_summary">Enable online caller identify and spam blocker service</string>
+    <string name="do_not_block_repeat_call_title">Do not block repeated calls</string>
+    <string name="do_not_block_repeat_call_summary">Do not block repeated calls within 20 minutes</string>
+    <string name="block_by_tag_title">Block callers by tag</string>
+    <string name="block_by_tag_summary_enabled">Spam will be blocked according to the selected type</string>
+    <string name="block_by_tag_summary_disabled">All spam will be blocked</string>
+    <string name="block_tags_title">Tags to block</string>
+    <!-- Caller tags -->
+    <string name="caller_tag_fraud">Fraud</string>
+    <string name="caller_tag_banking">Banking</string>
+    <string name="caller_tag_ad">AD</string>
+    <string name="caller_tag_spam">Spam</string>
+    <string name="caller_tag_illegal">Illegal</string>
+    <string name="caller_tag_insurer">Insurer</string>
+
+</resources>

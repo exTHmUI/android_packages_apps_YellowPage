@@ -1,0 +1,71 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/yellowpage_header">
+
+        <SwitchPreference
+            app:key="yellowpage_enabled"
+            app:title="@string/yellowpage_enable_title"
+            app:defaultValue="true" />
+
+        <Preference
+            app:key="update_yellowpage_database"
+            app:dependency="yellowpage_enabled"
+            app:title="@string/update_database_title" />
+
+        <Preference
+            app:key="yellowpage_database_status"
+            app:dependency="yellowpage_enabled"
+            app:title="@string/database_status_title" />
+
+        <Preference
+            app:key="yellowpage_contributors"
+            app:title="@string/yellowpage_contributors_title"
+            app:summary="@string/yellowpage_contributors_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/caller_id_and_spam_header">
+
+        <SwitchPreference
+            app:key="caller_id_and_spam_enabled"
+            app:title="@string/caller_id_and_spam_enable_title"
+            app:defaultValue="true"
+            app:summary="@string/caller_id_and_spam_enable_summary" />
+
+        <SwitchPreference
+            app:key="caller_id_and_spam_no_block_repeat"
+            app:dependency="caller_id_and_spam_enabled"
+            app:defaultValue="true"
+            app:title="@string/do_not_block_repeat_call_title"
+            app:summary="@string/do_not_block_repeat_call_summary" />
+
+        <SwitchPreference
+            app:key="caller_id_and_spam_block_by_tag"
+            app:dependency="caller_id_and_spam_enabled"
+            app:title="@string/block_by_tag_title"
+            app:summaryOn="@string/block_by_tag_summary_enabled"
+            app:summaryOff="@string/block_by_tag_summary_disabled" />
+
+        <MultiSelectListPreference
+            app:key="caller_id_and_spam_block_tags"
+            app:dependency="caller_id_and_spam_block_by_tag"
+            app:title="@string/block_tags_title"
+            app:entries="@array/block_tag_entries"
+            app:entryValues="@array/block_tag_values"
+            app:defaultValue="@array/block_tag_values"/>
+
+        <!--
+        <Preference
+            app:key="update_spam_database"
+            app:dependency="caller_id_and_spam_enabled"
+            app:title="@string/update_database_title" />
+        -->
+
+        <Preference
+            app:key="caller_id_and_spam_database_status"
+            app:dependency="caller_id_and_spam_enabled"
+            app:title="@string/database_status_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
