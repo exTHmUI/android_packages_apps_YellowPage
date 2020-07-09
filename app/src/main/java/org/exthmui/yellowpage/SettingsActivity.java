@@ -171,9 +171,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (dataManageConn != null) {
+            mDataBaseManager.setYellowPageDbListener(null);
+            unbindService(dataManageConn);
+        }
         super.onDestroy();
     }
-
 
     private class DataManageConn implements ServiceConnection {
         @Override
