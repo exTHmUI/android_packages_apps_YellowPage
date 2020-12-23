@@ -19,10 +19,11 @@ package org.exthmui.yellowpage.lookup;
 import android.content.Context;
 
 import org.exthmui.yellowpage.models.PhoneNumberInfo;
+import org.exthmui.yellowpage.utils.JsonUtil;
+import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -31,39 +32,39 @@ public class BaiduLookup extends PhoneNumberLookup {
     public PhoneNumberInfo lookup(Context context, String number) {
         PhoneNumberInfo info = new PhoneNumberInfo();
         info.number = number;
+        JSONObject params = new JSONObject();
         try {
-            // 构造搜索请求
-            URL url = new URL("https://m.baidu.com/s?tn=monline_7_dg&ie=utf-8&word=" + number);
+            /* I don't know how to generate this data */
+            params.put("data", "81e56802d9e92f6eda62bb8595b259e892808401724a14a7d838f76e460bb3ae8841afc7aa141f49db7f42dec22724e43759b42ef5157299c4b443f9d1e5fe1bce7063098f6b0c405d2dd797714e57158c8a869a9275918a5c82be878c8a583c150edadbca7e3a31ac007211eecfb3783fe0e171bddf1b6e91c115544935537f");
+            params.put("key_id", "14");
+            params.put("sign", "794c7ec2");
+            params.put("page", 1);
+            params.put("size", 10);
+            params.put("search", number);
+
+            // 构造请求
+            URL url = new URL("https://haoma.baidu.com/api/v1/search");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept","text/html, application/xhtml+xml, */*");
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Accept","application/json, text/plain, */*");
             connection.setRequestProperty("Accept-Language","en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3");
             connection.setRequestProperty("Accept-Encoding","deflate");
+            connection.setRequestProperty("Content-Type","application/json;charset=utf-8");
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0");
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
             connection.setConnectTimeout(1000);
-            connection.connect();
+            OutputStream os = connection.getOutputStream();
+            os.write(params.toString().getBytes());
+            os.close();
             // 处理搜索结果
             InputStream in = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder builder = new StringBuilder();
-            String line;
-            // 取得响应中的标记
-            while((line = reader.readLine()) != null){
-                builder.append(line);
-            }
-            reader.close();
-            in.close();
-            if (builder.length() > 0) {
-                int pos = builder.indexOf("<div name=\"label\"");
-                if (pos == -1) {
-                    pos = builder.indexOf("<div class=\"c-line-clamp2\">");
-                }
-                if (pos != -1) {
-                    String tmp = builder.substring(pos);
-                    tmp = tmp.substring(tmp.indexOf("<span>") + 6);
-                    info.tag = tmp.substring(0, tmp.indexOf("</span>"));
-                }
-            }
+            JSONObject json = new JSONObject(JsonUtil.InputStreamToString(in));
+            info.tag = json.getJSONObject("data")
+                            .getJSONObject(number)
+                            .getJSONArray("reports")
+                            .getJSONObject(0)
+                            .getString("name");
             PhoneNumberInfo.getTypeByTag(context, info);
         } catch (Exception e) {
             e.printStackTrace();
