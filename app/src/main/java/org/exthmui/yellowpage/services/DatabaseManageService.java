@@ -32,6 +32,7 @@ import org.exthmui.yellowpage.helpers.PhoneNumberTagDbHelper;
 import org.exthmui.yellowpage.helpers.YellowPageDbHelper;
 import org.exthmui.yellowpage.misc.Constants;
 import org.exthmui.yellowpage.models.ContactData;
+import org.exthmui.yellowpage.utils.JsonUtil;
 import org.exthmui.yellowpage.utils.NotificationUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,7 +91,7 @@ public class DatabaseManageService extends Service {
                 public void run() {
                     notifyListener(DATABASE_STATUS_CHECKING_UPDATE, yellowPageDbListener);
                     try {
-                        JSONObject dataJson = getJsonFromURL(Constants.YELLOWPAGE_DATA_UPDATE_URL + "?version=" + sharedPreferences.getLong(Constants.KEY_YELLOWPAGE_DATABASE_VERSION, 0));
+                        JSONObject dataJson = JsonUtil.getJsonFromURL(Constants.YELLOWPAGE_DATA_UPDATE_URL + "?version=" + sharedPreferences.getLong(Constants.KEY_YELLOWPAGE_DATABASE_VERSION, 0));
                         int status = dataJson.getInt("status");
                         long version = dataJson.getLong("version");
                         if (status == 0) {
@@ -179,34 +180,6 @@ public class DatabaseManageService extends Service {
         }
     }
 
-    private JSONObject getJsonFromURL(String url) throws IOException, JSONException {
-        URL updateURL = new URL(url);
-        HttpURLConnection connection = (HttpURLConnection) updateURL.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept","*/*");
-        connection.setRequestProperty("User-Agent", "YellowPage/1.0");
-        connection.setConnectTimeout(2000);
-        connection.connect();
-        if (connection.getResponseCode() != 200) {
-            InputStream inputStream = connection.getErrorStream();
-            Log.d(TAG, "HTTP code = " + connection.getResponseCode() + "," + "data = " + isToString(inputStream));
-            return null;
-        }
-        InputStream inputStream = connection.getInputStream();
-        return new JSONObject(isToString(inputStream));
-    }
-
-    private String isToString(InputStream inputStream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder builder = new StringBuilder();
-        String line;
-        while((line = reader.readLine()) != null){
-            builder.append(line);
-        }
-        reader.close();
-        inputStream.close();
-        return builder.toString();
-    }
 
     public class DatabaseManager extends Binder {
         public void setYellowPageDbListener(DatabaseStatusListener listener) {
