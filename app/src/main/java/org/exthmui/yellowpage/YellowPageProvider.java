@@ -23,7 +23,6 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
@@ -91,12 +90,10 @@ public class YellowPageProvider extends ContentProvider {
         selection = selection.replace(" ", "");
         switch (uriMatcher.match(uri)) {
             case PROVIDER_CODE_FORWARD:
-                Log.d(TAG, "Forward looking : " + selection);
                 contactDataList.addAll(yellowPageDbHelper.getDataListByName(selection));
                 contactDataList.addAll(yellowPageDbHelper.getDataListByPhone(selection));
                 break;
             case PROVIDER_CODE_REVERSE:
-                Log.d(TAG, "Reverse looking : " + selection);
                 contactDataList.add(yellowPageDbHelper.getDataByPhone(selection));
                 break;
             default:
