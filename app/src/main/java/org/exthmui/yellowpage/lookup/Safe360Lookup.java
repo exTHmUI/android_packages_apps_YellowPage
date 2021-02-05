@@ -26,7 +26,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Safe360Lookup extends PhoneNumberLookup {
+public class Safe360Lookup implements PhoneNumberLookup {
     @Override
     public PhoneNumberInfo lookup(Context context, String number) {
         PhoneNumberInfo info = new PhoneNumberInfo();

@@ -27,7 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SogouLookup extends PhoneNumberLookup {
+public class SogouLookup implements PhoneNumberLookup {
 
     @Override
     public PhoneNumberInfo lookup(Context context, String number) {

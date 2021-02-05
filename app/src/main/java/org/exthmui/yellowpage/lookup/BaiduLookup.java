@@ -27,7 +27,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class BaiduLookup extends PhoneNumberLookup {
+public class BaiduLookup implements PhoneNumberLookup {
     @Override
     public PhoneNumberInfo lookup(Context context, String number) {
         PhoneNumberInfo info = new PhoneNumberInfo();

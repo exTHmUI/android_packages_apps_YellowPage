@@ -21,7 +21,7 @@ import androidx.annotation.WorkerThread;
 
 import org.exthmui.yellowpage.models.PhoneNumberInfo;
 
-public abstract class PhoneNumberLookup {
+public interface PhoneNumberLookup {
     @WorkerThread
     public abstract PhoneNumberInfo lookup(Context context, String number);
 }
