@@ -32,6 +32,8 @@ import org.exthmui.yellowpage.lookup.SogouLookup;
 import org.exthmui.yellowpage.misc.Constants;
 import org.exthmui.yellowpage.models.PhoneNumberInfo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -57,12 +59,14 @@ public class exTHmCallScreeningService extends CallScreeningService {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
-    private PhoneNumberInfo lookupInfoOnline(String number) {
+    private PhoneNumberInfo lookupInfoOnline(String number, long countryCode) {
         PhoneNumberInfo info = null;
         for (PhoneNumberLookup phoneNumberLookup : phoneNumberLookups) {
-            info = phoneNumberLookup.lookup(this, number);
-            if (info.type != Constants.PhoneNumberTagData.TYPE_NORMAL) {
-                break;
+            if (countryCode == 0 || phoneNumberLookup.checkRegion(countryCode)) {
+                info = phoneNumberLookup.lookup(this, number);
+                if (info.type != Constants.PhoneNumberTagData.TYPE_NORMAL) {
+                    break;
+                }
             }
         }
         return info;
@@ -93,16 +97,32 @@ public class exTHmCallScreeningService extends CallScreeningService {
     @Override
     public void onScreenCall(@NonNull final Call.Details callDetails) {
         if (!sharedPreferences.getBoolean(Constants.KEY_CALLER_ID_ENABLED, true)) return;
-        final String number = callDetails.getHandle().toString().substring(4);
+        String number = callDetails.getHandle().toString().substring(4);
+        final long countryCode = getCountryCode(number);;
+        try {
+            number = URLDecoder.decode(number, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        number = number.replaceAll("-", "").replaceAll(" ", "");
+        if (number.startsWith("+")) {
+            number = number.substring(1);
+        }
         final CallResponse.Builder builder = new CallResponse.Builder();
+        final String finalNumber = number;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                PhoneNumberInfo info = phoneNumberTagDbHelper.query(number);
+                PhoneNumberInfo info = null;
+                try {
+                    info = phoneNumberTagDbHelper.query(finalNumber);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 if (info == null) {
-                    info = lookupInfoOnline(number);
+                    info = lookupInfoOnline(finalNumber, countryCode);
                     if (info.type != Constants.PhoneNumberTagData.TYPE_NORMAL) {
-                        phoneNumberTagDbHelper.insertData(number, info.tag, info.type);
+                        phoneNumberTagDbHelper.insertData(finalNumber, info.tag, info.type);
                     }
                 }
                 /*
@@ -120,5 +140,17 @@ public class exTHmCallScreeningService extends CallScreeningService {
                 respondToCall(callDetails,builder.build());
             }
         }).start();
+    }
+
+    private long getCountryCode(String number) {
+        if (number.charAt(0) == '+') {
+            String[] country_codes = getResources().getStringArray(R.array.country_codes);
+            for (String code : country_codes) {
+                if (number.startsWith("+" + code)) {
+                    return Long.parseLong(code);
+                }
+            }
+        }
+        return 0;
     }
 }

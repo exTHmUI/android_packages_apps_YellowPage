@@ -24,4 +24,11 @@ import org.exthmui.yellowpage.models.PhoneNumberInfo;
 public interface PhoneNumberLookup {
     @WorkerThread
     public abstract PhoneNumberInfo lookup(Context context, String number);
+
+    /**
+     * 检查这个查询接口是否支持该地区电话号码
+     * @param code 国际区号
+     * @return
+     */
+    public abstract boolean checkRegion(long code);
 }

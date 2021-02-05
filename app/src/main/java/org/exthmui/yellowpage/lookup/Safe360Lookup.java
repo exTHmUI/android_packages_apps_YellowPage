@@ -68,4 +68,9 @@ public class Safe360Lookup implements PhoneNumberLookup {
         }
         return info;
     }
+
+    @Override
+    public boolean checkRegion(long code) {
+        return code == 86;
+    }
 }

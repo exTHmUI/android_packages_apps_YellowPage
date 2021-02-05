@@ -69,4 +69,9 @@ public class SogouLookup implements PhoneNumberLookup {
         }
         return info;
     }
+
+    @Override
+    public boolean checkRegion(long code) {
+        return code == 86;
+    }
 }
