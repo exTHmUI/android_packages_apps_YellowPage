@@ -70,7 +70,7 @@ public class Constants {
     public static final String KEY_CALLER_ID_DATABASE_STATUS = "caller_id_and_spam_database_status";
     public static final String KEY_CALLER_ID_DATABASE_VERSION = "caller_id_and_spam_database_version";
 
-    public static final String YELLOWPAGE_DATA_UPDATE_URL = "https://cjybyjk.github.io/yellowpage_data.json";
+    public static final String YELLOWPAGE_DATA_UPDATE_URL = "https://gitee.com/exthmui_chinasource/YellowPage_data/raw/master/YellowPage_data.json";
     public static final String YELLOWPAGE_CONTRIBUTORS_URL = "https://github.com/exthmui/YellowPage_data/graphs/contributors";
 
     public static final String NOTIFICATION_CHANNEL_DATABASE_STATUS = "database_status";
