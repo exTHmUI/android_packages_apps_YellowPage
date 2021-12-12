@@ -50,7 +50,8 @@
 
         <service
             android:name=".services.exTHmCallScreeningService"
-            android:permission="android.permission.BIND_SCREENING_SERVICE">
+            android:permission="android.permission.BIND_SCREENING_SERVICE"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.telecom.CallScreeningService" />
             </intent-filter>
