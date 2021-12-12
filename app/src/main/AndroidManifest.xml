@@ -31,6 +31,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:exported="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
         <!--
@@ -71,6 +72,7 @@
 
         <activity
             android:name=".SettingsActivity"
+            android:exported="true"
             android:label="@string/title_settings" />
     </application>
 
