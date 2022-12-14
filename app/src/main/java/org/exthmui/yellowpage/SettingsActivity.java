@@ -16,17 +16,23 @@
 
 package org.exthmui.yellowpage;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -36,6 +42,7 @@ import org.exthmui.yellowpage.services.DatabaseManageService;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    public static final String POST_NOTIFICATIONS="android.permission.POST_NOTIFICATIONS";
     private final DataManageConn dataManageConn = new DataManageConn();
     private DatabaseManageService.DatabaseManager mDataBaseManager;
     private final DatabaseStatusListener yellowPageDbListener = new DatabaseStatusListener();
@@ -85,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+        requestNotifiPerm(this);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
@@ -189,6 +197,14 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             mDataBaseManager.setYellowPageDbListener(null);
+        }
+    }
+
+    private static void requestNotifiPerm(Activity activity){
+        if (Build.VERSION.SDK_INT >= 33) {
+            if (ActivityCompat.checkSelfPermission(activity, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions( activity,new String[]{POST_NOTIFICATIONS},100);
+            }
         }
     }
 }
