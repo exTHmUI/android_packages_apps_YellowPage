@@ -12,7 +12,12 @@ android_app {
         "androidx.appcompat_appcompat",
         "androidx.preference_preference",
         "androidx-constraintlayout_constraintlayout",
-        "com.google.android.material_material",
+        "com.google.android.material_material_md3",
+    ],
+
+    defaults: [
+        "ExthmSettingsLibDefaults",
+        "SettingsLib-search-defaults",
     ],
 
     sdk_version: "current",
