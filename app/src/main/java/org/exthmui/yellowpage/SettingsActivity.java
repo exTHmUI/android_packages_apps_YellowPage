@@ -26,21 +26,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import org.exthmui.settingslib.collapsingtoolbar.ExthmCollapsingToolbarBaseActivity;
 import org.exthmui.yellowpage.misc.Constants;
 import org.exthmui.yellowpage.services.DatabaseManageService;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends ExthmCollapsingToolbarBaseActivity {
 
     public static final String POST_NOTIFICATIONS="android.permission.POST_NOTIFICATIONS";
     private final DataManageConn dataManageConn = new DataManageConn();
@@ -79,12 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
                 default:
                     return;
             }
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    preference.setSummary(resId);
-                }
-            });
+            runOnUiThread(() -> preference.setSummary(resId));
         }
     }
 
@@ -97,10 +90,10 @@ public class SettingsActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        }*/
 
         Intent dbManageService = new Intent(this, DatabaseManageService.class);
         startService(dbManageService);
@@ -135,34 +128,25 @@ public class SettingsActivity extends AppCompatActivity {
 
         yellowPageDbListener.preference = yellowPageDbStatus;
 
-        yellowPageContributors.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                Uri content_url = Uri.parse(Constants.YELLOWPAGE_CONTRIBUTORS_URL);
-                intent.setData(content_url);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                }
-                return true;
+        yellowPageContributors.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            Uri content_url = Uri.parse(Constants.YELLOWPAGE_CONTRIBUTORS_URL);
+            intent.setData(content_url);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             }
+            return true;
         });
 
-        updateYellowPage.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                mDataBaseManager.updateYellowPageData();
-                return true;
-            }
+        updateYellowPage.setOnPreferenceClickListener(preference -> {
+            mDataBaseManager.updateYellowPageData();
+            return true;
         });
 
-        yellowPageDbStatus.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                yellowPageDbStatus.setSummary(getString(R.string.database_status,mDataBaseManager.getYellowPageDataCount()));
-                return true;
-            }
+        yellowPageDbStatus.setOnPreferenceClickListener(preference -> {
+            yellowPageDbStatus.setSummary(getString(R.string.database_status,mDataBaseManager.getYellowPageDataCount()));
+            return true;
         });
 
         yellowPageDbStatus.setSummary(getString(R.string.database_status,mDataBaseManager.getYellowPageDataCount()));
