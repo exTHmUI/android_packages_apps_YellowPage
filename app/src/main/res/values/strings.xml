@@ -36,4 +36,7 @@
     <string name="caller_tag_illegal">Illegal</string>
     <string name="caller_tag_insurer">Insurer</string>
 
+    <!-- Permissions -->
+    <string name="perm_allow_read_yellowpage">Read Yellow Page Data</string>
+
 </resources>

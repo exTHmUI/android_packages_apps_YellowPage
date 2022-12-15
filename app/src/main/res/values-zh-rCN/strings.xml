@@ -36,4 +36,8 @@
     <string name="caller_tag_spam">骚扰</string>
     <string name="caller_tag_illegal">违法</string>
     <string name="caller_tag_insurer">保险</string>
+
+    <!-- Permissions -->
+    <string name="perm_allow_read_yellowpage">读取黄页</string>
+
 </resources>
