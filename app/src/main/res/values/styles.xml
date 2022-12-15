@@ -1,11 +1,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="@style/Theme.SubSettingsBase">
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/system_accent</item>
         <item name="colorPrimaryDark">@color/system_accent_darker</item>
-        <item name="colorAccent">@color/system_accent_2</item>
+        <item name="colorSecondary">@color/system_accent_2</item>
+        <item name="android:statusBarColor">@color/netrual_color</item>
+        <item name="android:colorBackground">@color/netrual_color</item>
+
+        <item name="colorPrimaryVariant">@color/system_accent</item>
+        <item name="colorSecondaryVariant">@color/system_accent_2</item>
+        <item name="colorSecondaryContainer">@color/system_accent_soft</item>
+
+        <!-- Customize your theme here. -->
+        <item name="scrimBackground">@color/netrual_color</item>
+        <item name="colorSurface">@color/netrual_color</item>
+        <item name="android:navigationBarColor">@color/netrual_color</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="MultiSelectDialogStyle">
+        <item name="negativeButtonText">@android:string/cancel</item>
+        <item name="positiveButtonText">@android:string/ok</item>
     </style>
 
 </resources>

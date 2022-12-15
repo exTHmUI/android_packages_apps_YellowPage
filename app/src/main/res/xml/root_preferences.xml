@@ -46,13 +46,14 @@
             app:summaryOn="@string/block_by_tag_summary_enabled"
             app:summaryOff="@string/block_by_tag_summary_disabled" />
 
-        <MultiSelectListPreference
+        <androidx.preference.MultiSelectListPreference
             app:key="caller_id_and_spam_block_tags"
             app:dependency="caller_id_and_spam_block_by_tag"
             app:title="@string/block_tags_title"
             app:entries="@array/block_tag_entries"
             app:entryValues="@array/block_tag_values"
-            app:defaultValue="@array/block_tag_values"/>
+            app:defaultValue="@array/block_tag_values"
+            style="@style/MultiSelectDialogStyle"/>
 
         <!--
         <Preference
