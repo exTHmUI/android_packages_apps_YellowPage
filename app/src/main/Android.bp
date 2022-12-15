@@ -5,21 +5,20 @@ android_app {
 
     srcs: ["java/**/*.java"],
 
-    product_specific: true,
+    defaults: ["ExthmSettingsLibDefaults"],
+
+    system_ext_specific: true,
+
+    certificate: "platform",
+
+    platform_apis: true,
 
     static_libs: [
         "androidx.annotation_annotation",
         "androidx.appcompat_appcompat",
         "androidx.preference_preference",
         "androidx-constraintlayout_constraintlayout",
-        "com.google.android.material_material_md3",
+        "com.google.android.material_material",
+        "ExthmSettingsLib",
     ],
-
-    defaults: [
-        "ExthmSettingsLibDefaults",
-        "SettingsLib-search-defaults",
-    ],
-
-    sdk_version: "current",
-
 }
