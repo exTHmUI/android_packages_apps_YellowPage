@@ -18,12 +18,6 @@
         <item name="android:colorBackground">@color/background</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
-
-    <style name="MultiSelectDialogStyle">
-        <item name="negativeButtonText">@android:string/cancel</item>
-        <item name="positiveButtonText">@android:string/ok</item>
     </style>
 
 </resources>
